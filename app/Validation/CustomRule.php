@@ -36,17 +36,18 @@ class CustomRule
 
         if($response->success === '1' && $result === 'Safe to Send')
         {
-            return TRUE;
+            return true;
         }
         else
         {
-            return FALSE;
+            return false;
         }
     }
 
-    public function recaptcha($post){
+    public function recaptcha(string $recaptcha){
+
         // RECAPTCHA SETTINGS
-        $captcha = $post['g-recaptcha-response'];
+        $captcha = $recaptcha;
         $ip = $_SERVER['REMOTE_ADDR'];
         $key = '6LeHnLEZAAAAADpqKCXn9ARhBJvoeqsyorH9RWWT';
         $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -55,7 +56,11 @@ class CustomRule
         $recaptcha_response = file_get_contents($url.'?secret='.$key.'&response='.$captcha.'&remoteip='.$ip);
         $data = json_decode($recaptcha_response);
 
-        return isset($data->success) &&  $data->success === true;
+        if(($data->success) &&  $data->success === true){
+            return true;
+        }else{
+            return false;
+        }
         //'Your account has been logged as a spammer, you cannot continue!');
     }
 

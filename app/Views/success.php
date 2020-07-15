@@ -3,10 +3,9 @@
     <title>My Form</title>
     <link rel = "stylesheet" type = "text/css"
           href="/css/success.css"/>
+    <script src="/js/jquery.js"></script>
 </head>
 <body>
-
-<h3>Your form was successfully submitted!</h3>
 
 <p><?= anchor('/', 'Back') ?></p>
 
@@ -27,7 +26,6 @@
         <?php endforeach;?>
     </table>
 </div>
-
-
 </body>
 </html>
+
