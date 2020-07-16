@@ -36,14 +36,16 @@ class Home extends BaseController
             }
         }
         $cssFormValid = $isFormValid ? '' : 'was-validated';
-        echo view('welcome_message', ['title' => 'Register form', 'cssValid' => $cssFormValid ]);
+        $page = view('register', ['title' => 'Register form', 'cssValid' => $cssFormValid ]);
+        $this->render($page);
 	}
 
     public function main()
     {
         $model = new UserModel();
         $registered_users = $model->asObject()->findAll();
-        echo view('success', ['registered_users'=>$registered_users]);
+        $page = view('main', ['registered_users'=>$registered_users]);
+        $this->render($page);
     }
 
 

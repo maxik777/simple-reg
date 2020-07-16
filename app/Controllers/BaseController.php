@@ -43,4 +43,7 @@ class BaseController extends Controller
 		// $this->session = \Config\Services::session();
 	}
 
+	public function render($content) {
+        echo view('layout', ['content' => $content]);
+    }
 }

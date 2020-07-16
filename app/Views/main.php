@@ -1,17 +1,7 @@
-<html>
-<head>
-    <title>My Form</title>
-    <link rel = "stylesheet" type = "text/css"
-          href="/css/success.css"/>
-    <script src="/js/jquery.js"></script>
-</head>
-<body>
-
 <p><?= anchor('/', 'Back') ?></p>
-
 <h2>Registered users</h2>
 <div class="content">
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>ID</th>
             <th>Username</th>
@@ -26,6 +16,4 @@
         <?php endforeach;?>
     </table>
 </div>
-</body>
-</html>
 
