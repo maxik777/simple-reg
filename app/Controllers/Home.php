@@ -8,15 +8,9 @@ class Home extends BaseController
 {
     public function index()
 	{
-        echo view('welcome_message', ['title' => 'Register form']);
-	}
-
-	public function register()
-    {
-        if ($_POST){
-            //$this->recaptcha($_POST);
-            $model = new UserModel();
-            if (! $this->validate([
+	    $isFormValid = true;
+        if ($_POST) {
+            $rules = [
                 'username' => 'required|min_length[3]|max_length[255]',
                 'email'  => [
                     'rules'=>'required|valid_email|check_email|is_unique[users.email]',
@@ -30,13 +24,10 @@ class Home extends BaseController
                         'recaptcha' => 'Something wrong with captcha, try again.'
                     ]
                 ],
-            ]))
-            {
-                return view('welcome_message', ['title' => 'Register form']);
-            }
-            else
-            {
-                $session = session();
+            ];
+            $isFormValid = $this->validate($rules);
+            if ($isFormValid) {
+                $model = new UserModel();
                 $model->save([
                     'username' => $this->request->getVar('username'),
                     'email'  => $this->request->getVar('email'),
@@ -44,9 +35,9 @@ class Home extends BaseController
                 return redirect()->to('/main');
             }
         }
-        return redirect()->to('/');
-
-    }
+        $cssFormValid = $isFormValid ? '' : 'was-validated';
+        echo view('welcome_message', ['title' => 'Register form', 'cssValid' => $cssFormValid ]);
+	}
 
     public function main()
     {
